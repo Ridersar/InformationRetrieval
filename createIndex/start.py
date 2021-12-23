@@ -1,0 +1,3 @@
+from createIndex.createIndexProducts import CreateIndexProductsts
+
+CreateIndexProductsts()

@@ -1,0 +1,66 @@
+PUT http://localhost:9200/products/
+{
+  "settings": {
+    "index": {
+      "max_ngram_diff" : "15",
+      "analysis": {
+        "analyzer": {
+          "my_analyzer": {
+            "tokenizer": "standard",
+            "filter": ["lowercase", "my_snow", "my_synonyms", "my_ngram"]
+          }
+        },
+        "filter": {
+          "my_synonyms": {
+            "type": "synonym",
+            "synonyms_path": "synonyms.txt"
+          },
+          "my_snow": {
+            "type": "snowball",
+            "language": "Russian"
+          },
+          "my_ngram": {
+            "type": "nGram",
+            "min_gram": "3",
+            "max_gram": "12"
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "url": {
+        "type": "text"
+      },
+      "name": {
+        "type": "text"
+      },
+      "category": {
+        "type": "text"
+      },
+      "price": {
+        "type": "text"
+      },
+      "count_players": {
+        "type": "text"
+      },
+      "time": {
+        "type": "text"
+      },
+      "age": {
+        "type": "text"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "my_analyzer"
+      },
+      "year": {
+        "type": "integer"
+      },
+      "producer": {
+        "type": "text"
+      }
+    }
+  }
+}
